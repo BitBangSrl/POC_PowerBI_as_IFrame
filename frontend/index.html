@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Power BI Embedded - PoC</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 40px;
+        }
+
+        select, button {
+            padding: 8px;
+            margin-right: 10px;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+
+        #report-container {
+            margin-top: 30px;
+            height: 450px;
+            border: 2px dashed #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Power BI Embedded – PoC</h1>
+
+    <!-- ✅ Modalità -->
+    <p><strong>Modalità:</strong></p>
+    <select id="modeSelect">
+        <option value="app">App owns data</option>
+        <option value="user">User owns data (SSO)</option>
+    </select>
+
+    <br><br>
+
+    <!-- ✅ BLOCCO LOGIN -->
+    <div id="login-section">
+        <button onclick="login()">Login Microsoft</button>
+    </div>
+
+    <!-- ✅ BLOCCO UTENTE -->
+    <div id="user-section">
+        <p>Seleziona un utente (PoC):</p>
+        <select id="userSelect">
+            <option value="userA">User A</option>
+            <option value="userB">User B</option>
+            <option value="admin">Admin</option>
+        </select>
+    </div>
+
+    <div id="auth-status" style="margin-bottom: 20px;"></div>
+
+    <br><br>
+
+    <button onclick="loadReport()">Carica Analytics</button>
+
+    <div id="result"></div>
+
+    <div id="report-container">
+        Power BI report will be embedded here
+    </div>
+
+    <!-- Power BI JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/powerbi-client@2.23.1/dist/powerbi.min.js"></script>
+    <script src="https://alcdn.msauth.net/browser/2.38.1/js/msal-browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

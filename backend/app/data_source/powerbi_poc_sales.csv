@@ -1,0 +1,7 @@
+order_id,customer_id,country,amount
+1,100,IT,120.5
+2,100,IT,75.0
+3,200,FR,210.2
+4,200,FR,45.9
+5,300,DE,310.0
+6,300,DE,99.9
