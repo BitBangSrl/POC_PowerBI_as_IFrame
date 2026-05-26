@@ -8,7 +8,7 @@ app = FastAPI(
     version="0.1.0"
 )
 
-# ✅ CORS configuration (PoC-friendly)
+# CORS configuration
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[],

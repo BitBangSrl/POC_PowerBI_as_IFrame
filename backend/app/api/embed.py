@@ -24,7 +24,7 @@ def get_embed_info(request: Request, user: str = None):
             "embedInfo": embed_info
         }
 
-    # CASO APP OWNS DATA (vecchio)
+    # CASO APP OWNS DATA
     if not user:
         raise HTTPException(status_code=400, detail="User parameter required")
 

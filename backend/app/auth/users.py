@@ -10,7 +10,6 @@ _USERS = {
 def get_user_context(username: str) -> UserContext:
     """
     Recupera il contesto utente.
-    In futuro: DB / Auth provider / Entra ID
     """
     if username not in _USERS:
         raise ValueError(f"User '{username}' not found")

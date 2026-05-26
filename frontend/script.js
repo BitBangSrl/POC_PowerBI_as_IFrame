@@ -1,6 +1,6 @@
 window.onload = function () {
 
-    // ✅ attacca event listener DOPO che il DOM è caricato
+    // attacca event listener dopo che il DOM è caricato
     document.getElementById("modeSelect")
         .addEventListener("change", updateUIBasedOnMode);
 
@@ -15,22 +15,22 @@ function updateUIBasedOnMode() {
     const userSection = document.getElementById("user-section");
 
     if (mode === "app") {
-        // ✅ App owns data
-        loginSection.style.display = "none";   // nascondi login
+        // App owns data
+        loginSection.style.display = "none";   // nasconde login
         userSection.style.display = "block";   // mostra select utente
 
     } else {
-        // ✅ User owns data
+        // User owns data
         loginSection.style.display = "block";  // mostra login
-        userSection.style.display = "none";    // nascondi select utente
+        userSection.style.display = "none";    // nasconde select utente
     }
 }
 
 const msalConfig = {
     auth: {
-        clientId: "599af31d-a5ad-4cef-ae5d-b3f4b51d1e66",  // ← da Azure
+        clientId: "599af31d-a5ad-4cef-ae5d-b3f4b51d1e66",
         authority: "https://login.microsoftonline.com/c9c4d101-2487-4a99-bce1-d9079d8d573a",
-        redirectUri: "https://f6ac-80-181-150-55.ngrok-free.app"  // o porta del tuo server
+        redirectUri: "https://f6ac-80-181-150-55.ngrok-free.app"
     }
 };
 
@@ -80,7 +80,7 @@ async function loadReport() {
         let response;
 
         if (accessToken) {
-            // ✅ USER OWNS DATA
+            // USER OWNS DATA
             // local -> http://127.0.0.1:8000/api/embed-info
             response = await fetch(`https://8b89-80-181-150-55.ngrok-free.app/api/embed-info`, {
                 method: "POST",
@@ -91,7 +91,7 @@ async function loadReport() {
                 body: JSON.stringify({})
             });
         } else {
-            // ✅ APP OWNS DATA (vecchia)
+            // APP OWNS DATA
             response = await fetch(`https://8b89-80-181-150-55.ngrok-free.app/api/embed-info?user=${user}`);
         }
 
@@ -121,7 +121,7 @@ function embedPowerBIReport(embedInfo) {
     // Rimuove eventuali embed precedenti
     powerbi.reset(container);
 
-    // ✅ CASO ATTUALE: token fake
+    // Caso con token fake
     if (embedInfo.accessToken.startsWith("FAKE_TOKEN")) {
         container.innerHTML = `
             <div>
@@ -136,7 +136,7 @@ function embedPowerBIReport(embedInfo) {
         return;
     }
 
-    // 🟢 CASO FUTURO: token reale
+    // Caso con token reale
     const models = window['powerbi-client'].models;
 
     const config = {

@@ -12,7 +12,6 @@ load_dotenv()
 
 class PowerBIService:
 
-
     def get_embed_info(self, user: UserContext):
         tenant_id = os.environ["TENANT_ID"]
         client_id = os.environ["CLIENT_ID"]

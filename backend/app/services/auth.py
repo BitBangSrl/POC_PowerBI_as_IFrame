@@ -12,7 +12,6 @@ def get_azure_ad_token(tenant_id, client_id, client_secret):
 
     response = requests.post(url, data=data)
 
-    # Se qualcosa va storto, vogliamo vedere subito l'errore
     if response.status_code != 200:
         raise Exception(f"Errore AAD: {response.text}")
 
