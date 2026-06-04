@@ -30,7 +30,7 @@ const msalConfig = {
     auth: {
         clientId: "599af31d-a5ad-4cef-ae5d-b3f4b51d1e66",
         authority: "https://login.microsoftonline.com/c9c4d101-2487-4a99-bce1-d9079d8d573a",
-        redirectUri: "https://f6ac-80-181-150-55.ngrok-free.app"
+        redirectUri: "http://localhost:5500"
     }
 };
 
@@ -82,7 +82,7 @@ async function loadReport() {
         if (accessToken) {
             // USER OWNS DATA
             // local -> http://127.0.0.1:8000/api/embed-info
-            response = await fetch(`https://8b89-80-181-150-55.ngrok-free.app/api/embed-info`, {
+            response = await fetch(`http://127.0.0.1:8000/api/embed-info`, {
                 method: "POST",
                 headers: {
                         "Content-Type": "application/json",
@@ -92,7 +92,7 @@ async function loadReport() {
             });
         } else {
             // APP OWNS DATA
-            response = await fetch(`https://8b89-80-181-150-55.ngrok-free.app/api/embed-info?user=${user}`);
+            response = await fetch(`http://127.0.0.1:8000/api/embed-info?user=${user}`);
         }
 
         if (!response.ok) {
@@ -154,5 +154,59 @@ function embedPowerBIReport(embedInfo) {
         }
     };
 
-    powerbi.embed(container, config);
+    const report = powerbi.embed(container, config);
+    window.report = report;
 }
+
+
+async function applyFilters() {
+    const country = document.getElementById("country").value;
+    const year = document.getElementById("year").value;
+
+    const filters = [];
+
+    if (country) {
+        filters.push({
+            $schema: "http://powerbi.com/product/schema#basic",
+            target: {
+                table: "Sales",        // esempio
+                column: "Country"     // esempio
+            },
+            operator: "In",
+            values: [country]
+        });
+    }
+
+    if (year) {
+        filters.push({
+            $schema: "http://powerbi.com/product/schema#basic",
+            target: {
+                table: "Sales",
+                column: "Year"
+            },
+            operator: "In",
+            values: [year]
+        });
+    }
+
+    // Applicazione filtri al report
+    const report = window.report;
+    await report.setFilters(filters);
+}
+
+
+async function clearFilters() {
+    if (!window.report) {
+        console.log("Report non pronto");
+        return;
+    }
+
+    await window.report.setFilters([]);
+
+    // reset UI
+    document.getElementById("country").value = "";
+    document.getElementById("year").value = "";
+}
+
+
+

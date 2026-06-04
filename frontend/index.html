@@ -68,6 +68,25 @@
 
     <button onclick="loadReport()">Carica Analytics</button>
 
+    <div>
+      <label for="country">Country:</label>
+      <select id="country">
+        <option value="">-- Seleziona --</option>
+        <option value="IT">Italy</option>
+        <option value="US">USA</option>
+      </select>
+
+      <label for="year">Year:</label>
+      <select id="year">
+        <option value="">-- Seleziona --</option>
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+      </select>
+
+      <button onclick="applyFilters()">Applica filtri</button>
+      <button onclick="clearFilters()">Reset filtri</button>
+    </div>
+
     <div id="result"></div>
 
     <div id="report-container">
