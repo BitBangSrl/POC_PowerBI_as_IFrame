@@ -5,7 +5,38 @@ window.onload = function () {
         .addEventListener("change", updateUIBasedOnMode);
 
     updateUIBasedOnMode();
+    embedThoughtSpot();
 };
+
+
+function embedThoughtSpot() {
+
+    const { init, SearchEmbed, AuthType } = window.tsembed;
+
+    init({
+        thoughtSpotHost: "https://techpartners.thoughtspot.cloud",
+        authType: AuthType.None,
+//        authType: AuthType.TrustedAuthTokenCookieless,
+//        getAuthToken: async () => {
+//            const res = await fetch("http://127.0.0.1:8000/api/ts-token", {
+//                headers: {
+//                    "Authorization": `Bearer ${accessToken}`
+//                }
+//            });
+//            return await res.text();
+//        }
+
+    });
+
+    // SearchEmbed mostra tutta l'interfaccia completa di TS dati + query
+    // LiveboardEmbed mostra una dashboard specifica, niente search UI
+    // VisualizationEmbed mostra un singolo grafico
+    const embed = new SearchEmbed(
+        document.getElementById("ts-container")
+    );
+
+    embed.render();
+}
 
 
 function updateUIBasedOnMode() {
