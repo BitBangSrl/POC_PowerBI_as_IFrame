@@ -1,8 +1,6 @@
 import requests
 import os
 
-from fastapi import HTTPException
-
 from app.models.user import UserContext
 from app.services.auth import get_azure_ad_token
 from dotenv import load_dotenv

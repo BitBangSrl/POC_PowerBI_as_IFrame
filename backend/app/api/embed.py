@@ -1,9 +1,11 @@
 from fastapi import APIRouter, Query, HTTPException, Request
 from app.auth.users import get_user_context
 from app.services.powerbi import PowerBIService
+from app.services.thoughtspot import ThoughtSpotService
 
 router = APIRouter()
 powerbi_service = PowerBIService()
+thoughtspot_service = ThoughtSpotService()
 
 
 @router.post("/embed-info")
@@ -43,3 +45,24 @@ def get_embed_info(request: Request, user: str = None):
         "embedInfo": embed_info
     }
 
+
+@router.get("/ts-token")
+def get_ts_token(request: Request):
+
+    auth_header = request.headers.get("Authorization")
+    user_token = None
+
+    if auth_header and auth_header.startswith("Bearer "):
+        user_token = auth_header.split(" ")[1]
+
+    # CASO USER OWNS DATA (stesso pattern PBI)
+    if user_token:
+        # TODO: decodifica token (step successivo)
+        username = "user@azienda.com"  # placeholder temporaneo
+
+        ts_token = thoughtspot_service.generate_ts_token(username)
+
+        return ts_token
+
+    # caso app owns data (opzionale)
+    return "NO_USER"

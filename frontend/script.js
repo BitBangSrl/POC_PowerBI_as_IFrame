@@ -15,16 +15,16 @@ function embedThoughtSpot() {
 
     init({
         thoughtSpotHost: "https://techpartners.thoughtspot.cloud",
-        authType: AuthType.None,
-//        authType: AuthType.TrustedAuthTokenCookieless,
-//        getAuthToken: async () => {
-//            const res = await fetch("http://127.0.0.1:8000/api/ts-token", {
-//                headers: {
-//                    "Authorization": `Bearer ${accessToken}`
-//                }
-//            });
-//            return await res.text();
-//        }
+//        authType: AuthType.None,
+        authType: AuthType.TrustedAuthTokenCookieless,
+        getAuthToken: async () => {
+            const res = await fetch("http://127.0.0.1:8000/api/ts-token", {
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`
+                }
+            });
+            return await res.text();
+        }
 
     });
 
